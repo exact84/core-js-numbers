@@ -257,10 +257,15 @@ function getCube(num) {
  *   10 => 55
  */
 function getFibonacciNumber(index) {
-  if (index === 1 || index === 2) {
-    return 1;
+  if (index <= 1) return index;
+  let prev = 0;
+  let cur = 1;
+  for (let i = 2; i <= index; i += 1) {
+    const next = prev + cur;
+    prev = cur;
+    cur = next;
   }
-  return getFibonacciNumber(index - 1) + getFibonacciNumber(index - 2);
+  return cur;
 }
 
 /**
@@ -293,8 +298,10 @@ function getSumToN(n) {
  */
 function getSumOfDigits(num) {
   let result = 0;
-  while (num > 10) {
-    result += num % 10;
+  let numb = num;
+  while (numb > 0) {
+    result += numb % 10;
+    numb = Math.floor(numb / 10);
   }
   return result;
 }
@@ -456,7 +463,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return parseFloat(str);
+  return Number.parseFloat(str);
 }
 
 /**
@@ -474,7 +481,7 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(str, base);
+  return Number.parseInt(str, base);
 }
 
 /**
@@ -489,7 +496,7 @@ function getIntegerOnString(str, base) {
  * 2 ** 53  => false
  */
 function isSafeInteger(number) {
-  Number.isSafeInteger(number);
+  return Number.isSafeInteger(number);
 }
 
 /**
@@ -563,7 +570,7 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+  return Math.round(x1 * 10 + x2 * 10 + x3 * 10) / 10;
 }
 
 /**
@@ -595,7 +602,7 @@ function getMaxNumber(firstNumber, secondNumber) {
  * -1, 1 => -1 | 0 | 1
  */
 function getRandomInteger(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.round(Math.random() * (max - min) + min);
 }
 
 /**
@@ -627,7 +634,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i; i <= number; i += 2) {
+  for (let i = 1; i <= Math.abs(number); i += 2) {
     count += 1;
   }
   return count;
